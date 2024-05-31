@@ -1,0 +1,20 @@
+{
+  "name": "nodejs-addon-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "gypfile": true,
+  "scripts": {
+    "build": "node-gyp rebuild",
+    "clean": "node-gyp clean"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "node-gyp": "^10.1.0"
+  },
+  "dependencies": {
+    "node-addon-api": "^8.0.0"
+  }
+}
