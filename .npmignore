@@ -1,0 +1,10 @@
+node_modules
+src
+*.log
+*.ts
+*.json
+*.md
+*.lock
+tsconfig.json
+tsconfig.esm.json
+build.js

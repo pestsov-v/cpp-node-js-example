@@ -5,16 +5,39 @@
   "main": "index.js",
   "gypfile": true,
   "scripts": {
-    "build": "node-gyp rebuild",
-    "clean": "node-gyp clean"
+    "build": "node build.js",
+    "clean": "node-gyp clean",
+    "build:packages": "rm -rf dist && tsc -p tsconfig.cjs.json && tsc -p tsconfig.types.json  && tsc -p tsconfig.esm.json && cp package.json dist/package.json",
+    "add:types": "cp -r types dist/types",
+    "add:imports": "echo 'export * from \"../types\";' >> ./dist/_types/index.d.ts",
+    "add:package": "echo '{\"type\":  \"commonjs\"}\n' > dist/_cjs/package.json && echo '{\"type\":  \"module\"}\n' > dist/_esm/package.json && cp README.md dist/README.md",
+    "build:prod": "npm run build && npm run build:packages && npm run add:types && npm run add:imports && npm run add:package",
+    "start:prod": "node ./_cjs/index.js"
   },
-  "keywords": [],
-  "author": "",
+  "exports": {
+    ".": {
+      "types": "./_types/*.d.ts",
+      "node": "./_cjs/index.js",
+      "require": "./_cjs/index.js",
+      "import": "./_esm/index.js",
+      "default": "./_esm/index.js"
+    }
+  },
+  "keywords": [
+    "@x-fiber/addon",
+    "@x-fiber",
+    "@x-fiber/business-scheme"
+  ],
+  "author": {
+    "email": "vladyslav.pestsov@gmail.com",
+    "name": "Vladyslav Pestsov"
+  },
   "license": "ISC",
   "devDependencies": {
-    "node-gyp": "^10.1.0"
-  },
-  "dependencies": {
+    "@types/node": "^20.13.0",
+    "node-gyp": "^10.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5",
     "node-addon-api": "^8.0.0"
   }
 }
